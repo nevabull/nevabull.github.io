@@ -8,6 +8,35 @@
     <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
  
+<script>
+    function cal() {
+      
+    
+        var ss = document.getElementById("samplesize").value;
+        var incidence = document.getElementById("incidence").value;
+        var ttt = Math.round(ss * (incidence/100));
+        var sens = document.getElementById("sensitivity").value;
+        var spec = document.getElementById("specificity").value;
+        var ttf = Math.round(ss - ttt);
+        var tp = Math.round(ttt * sens);
+        var tn = Math.round(ttf * spec);
+        document.getElementById("totalTtrue").innerHTML = ttt; 
+        document.getElementById("totalTfalse").innerHTML = ttf;
+        document.getElementById("TruePositive").innerHTML = tp; 
+        document.getElementById("TrueNegative").innerHTML = tn; 
+        document.getElementById("FalsePositive").innerHTML = ttf - tn; 
+        document.getElementById("FalseNegative").innerHTML = ttt - tp; 
+        document.getElementById("totalFfalse").innerHTML = tn + (ttt - tp); 
+        document.getElementById("totalFtrue").innerHTML = tp + (ttf -tn); 
+        var ppv = tp / (tp + (ttf-tn));
+        var npv = tn / (tn + (ttt - tp));
+        document.getElementById("PPV").innerHTML = ppv.toFixed(2);
+        document.getElementById("NPV").innerHTML = npv.toFixed(2); 
+        var acc = (tp + tn) / ss
+        document.getElementById("acc").innerHTML = acc.toFixed(2); 
+    }
+</script> 
+
 </head>
 <body>
     
@@ -16,7 +45,7 @@
      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
         <!-- Navbar content -->
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">home</a>
+            <a class="navbar-brand" href="./index.html">Neva</a>
             <button title="Navigation menu" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" >
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -24,9 +53,9 @@
         <div class="collapse navbar-collapse"  id="navbarNav">
             <div class="navbar-nav">
         
-                <a class="nav-link active" href="./index.html" aria-current="true">Neuroscience</a>
-                <a class="nav-link" href="#">Machine Learning</a>
-                <a class="nav-link" href="#">Image Processing</a>
+                <a class="nav-link active" href="#">neuroscience</a>
+                <a class="nav-link" href="#" aria-current="true">machine learning</a>
+                <a class="nav-link" href="#">image processing</a>
         
             </div> 
         </div>   
@@ -50,6 +79,110 @@
 <!--<input type="text" id="inp" value="10" onchange="calculate()"> -->
 
 <h1 class="display-6">Machine Learning Concepts</h1>
+<h1 class="display-6">Interactive Confusion Matrix</h1>
+<br/>
+<br/>
+
+<table class="table table-borderless">
+    <tbody>
+        <tr>
+            <td>Sample Size:</td>
+            <td>Incidence (%):</td>
+        </tr> 
+        <tr>
+        <td>  <input id="samplesize" value="1000" size="4" onchange="cal()" /></td>
+            
+            <td>  <input  id="incidence" value="2" size="4" onchange="cal()"/></td>
+           </tr> 
+           <tr>
+            <td> Sensitivity:</td>
+            <td>Specificity:</td>
+        </tr>
+            
+            <tr>
+           
+        
+            
+                <td> <input id = "sensitivity" size="4" value="0.97" onchange="cal()"/> </td>
+            
+                <td> <input id ="specificity" size="4" value="0.94" onchange="cal()"/> </td>
+            </tr>
+                
+        
+    </tbody>
+</table>
+<td><button class="btn btn btn-outline-success" onclick="cal()">Calculate</button> </td>
+<div class="row justify-content-center">
+    <div class="col-2">
+        <br/>
+        
+     
+    </div>
+
+</div>
+
+
+<table class="table table-borderd">
+
+    <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+			<td><strong>PREDICTED</strong></td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            
+			<td><strong>TRUTH</strong></td>
+            <td>Positive</td>
+            <td>Negative</td>
+            <td>Total</td>
+            
+        </tr>
+        <tr>
+            
+            <td>Positive</td>
+            <td id="TruePositive" class="table-success"></td>
+            <td id = "FalseNegative" class="table-danger"></td>
+            <td id = "totalTtrue"></td>
+        </tr>
+
+        <tr>
+            
+            <td>Negative</td>
+            <td id="FalsePositive" class="table-danger"></td>
+            <td id="TrueNegative" class="table-success"></td>
+            <td id ="totalTfalse"></td>
+        </tr>
+        <tr>
+            <td>Total</td>
+            
+            <td id="totalFtrue"></td>
+            <td id="totalFfalse"></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td>Predictive Value</td>
+           <td id="PPV"></td>
+           <td id="NPV"></td>
+           <td></td>     
+        </tr>
+        <tr>
+            <td>Accuracy</td>
+            <td id = "acc"></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+
+</body>
 
 </div>
 </div>
