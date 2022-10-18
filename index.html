@@ -66,7 +66,7 @@ function calc(sens){
             <div class="navbar-nav">
         
                 <a class="nav-link active" href="#" aria-current="true">Neuroscience</a>
-                <a class="nav-link" href="#">Machine Learning</a>
+                <a class="nav-link" href="./ml.html">Machine Learning</a>
                 <a class="nav-link" href="#">Image Processing</a>
         
             </div> 
@@ -83,7 +83,7 @@ function calc(sens){
         </div>
         <div class="col-sm-8">
 
-            <div class="container">
+            <div class="container-fluid">
                 <div class = "row">
                     <br/>
                     <br/>
@@ -99,23 +99,30 @@ function calc(sens){
         <tr>
             <td>Sample Size:</td>
             <td>Incidence (%):</td>
-            <td> Sensitivity:</td>
-            <td>Specificity:</td>
-            <td></td>
-            </tr><tr>
-            <td>  <input id="samplesize" value="1000" size="4" onchange="cal()" /></td>
+        </tr> 
+        <tr>
+        <td>  <input id="samplesize" value="1000" size="4" onchange="cal()" /></td>
             
             <td>  <input  id="incidence" value="25" size="4" onchange="cal()"/></td>
+           </tr> 
+           <tr>
+            <td> Sensitivity:</td>
+            <td>Specificity:</td>
+        </tr>
+            
+            <tr>
+           
         
             
                 <td> <input id = "sensitivity" size="4" value="0.9" onchange="cal()"/> </td>
             
                 <td> <input id ="specificity" size="4" value="0.85" onchange="cal()"/> </td>
-                <td><button class="btn btn btn-outline-success" onclick="cal()">Calculate</button> </td>
-        </tr>
+            </tr>
+                
+        
     </tbody>
 </table>
-
+<td><button class="btn btn btn-outline-success" onclick="cal()">Calculate</button> </td>
 <div class="row justify-content-center">
     <div class="col-2">
         <br/>
