@@ -28,6 +28,12 @@ function cal() {
     document.getElementById("FalseNegative").innerHTML = ttt - tp; 
     document.getElementById("totalFfalse").innerHTML = tn + (ttt - tp); 
     document.getElementById("totalFtrue").innerHTML = tp + (ttf -tn); 
+    var ppv = tp / (tp + (ttf-tn));
+    var npv = tn / (tn + (ttt - tp));
+    document.getElementById("PPV").innerHTML = ppv.toFixed(2);
+    document.getElementById("NPV").innerHTML = npv.toFixed(2); 
+    var acc = (tp + tn) / ss
+    document.getElementById("acc").innerHTML = acc.toFixed(2); 
 }
 
 function calc(sens){
@@ -137,6 +143,7 @@ function calc(sens){
             <td>Positive</td>
             <td>Negative</td>
             <td>Total</td>
+            
         </tr>
         <tr>
             
@@ -160,6 +167,18 @@ function calc(sens){
             <td id="totalFfalse"></td>
             <td></td>
 
+        </tr>
+        <tr>
+            <td>Predictive Value</td>
+           <td id="PPV"></td>
+           <td id="NPV"></td>
+           <td></td>     
+        </tr>
+        <tr>
+            <td>Accuracy</td>
+            <td id = "acc"></td>
+            <td></td>
+            <td></td>
         </tr>
     </tbody>
 </table>
