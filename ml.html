@@ -78,8 +78,28 @@
                 </div>     
 <!--<input type="text" id="inp" value="10" onchange="calculate()"> -->
 
-<h1 class="display-6">Machine Learning Concepts</h1>
-<h1 class="display-6">Interactive Confusion Matrix</h1>
+<h1 class="display-5">Machine Learning Concepts</h1>
+<br/>
+<h5>Evaluation of Categorization Models</h5>
+<p>
+    This may seem backward, but before training a ML model it's a good idea to have a handle on how you are going to evaluate it. The <strong>confusion matrix</strong> is fundamental to understanding a model's performance. 
+</p>
+<p>
+    The name <em>'confusion matrix'</em> is a good name, because it can be remarkably <em>confusing</em>. There are many ways to add, subtract and divide the cells in the table that give quite different measures of performance. 
+    Unfortunately many of these measures have multiple names that mean the same thing. For example what is commonly expressed in medicine as <em>specificity</em> is also known as <em>selectivity</em> or <em>true negative rate</em>  
+.  Check out <a href="https://en.wikipedia.org/wiki/Sensitivity_and_specificity">https://en.wikipedia.org/wiki/Sensitivity_and_specificity</a> for a list with formula.
+</p>
+<p>
+    One important thing to consider is which metric is most important to you.  Commonly only <em>accuracy</em> is reported, but this single number can be quite misleading.  
+    For example imagine you have tested positive for a rare form of cancer (occuring in 1 in 10000 people or 0.1% <em>incidence</em>) and you are told that the test is 99% accurate and has 99% sensitivity and 99% specificity.
+     What would you think the chance of the test being wrong and you <Strong>actually don't have the cancer</Strong> <em>(a false positive)</em>?  
+     <p>The answer is 91%! </p>
+     <p>The confusion matrix below is prefilled with these numbers:  hit 'calculate' and see for yourself. 
+     Try changing the incidence percentage and see the effect this has on Positive Predictive Value</p>
+</p>
+
+
+<h2 class="display-6">Interactive Confusion Matrix</h2>
 <br/>
 <br/>
 
@@ -90,9 +110,9 @@
             <td>Incidence (%):</td>
         </tr> 
         <tr>
-        <td>  <input id="samplesize" value="1000" size="4" onchange="cal()" /></td>
+        <td>  <input id="samplesize" value="10000" size="4" onchange="cal()" /></td>
             
-            <td>  <input  id="incidence" value="2" size="4" onchange="cal()"/></td>
+            <td>  <input  id="incidence" value="0.1" size="4" onchange="cal()"/></td>
            </tr> 
            <tr>
             <td> Sensitivity:</td>
@@ -103,9 +123,9 @@
            
         
             
-                <td> <input id = "sensitivity" size="4" value="0.97" onchange="cal()"/> </td>
+                <td> <input id = "sensitivity" size="4" value="0.99" onchange="cal()"/> </td>
             
-                <td> <input id ="specificity" size="4" value="0.94" onchange="cal()"/> </td>
+                <td> <input id ="specificity" size="4" value="0.99" onchange="cal()"/> </td>
             </tr>
                 
         
