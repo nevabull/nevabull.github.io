@@ -57,7 +57,7 @@ function calc(sens){
      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
         <!-- Navbar content -->
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Neva</a>
+            <a class="navbar-brand" href="#">Neva Bull</a>
             <button title="Navigation menu" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" >
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -88,107 +88,39 @@ function calc(sens){
                     <br/>
                     <br/>
                 </div>     
-<!--<input type="text" id="inp" value="10" onchange="calculate()"> -->
-
-<h1 class="display-6">Interactive Confusion Matrix</h1>
-<br/>
-<br/>
-
-<table class="table table-borderless">
-    <tbody>
-        <tr>
-            <td>Sample Size:</td>
-            <td>Incidence (%):</td>
-        </tr> 
-        <tr>
-        <td>  <input id="samplesize" value="1000" size="4" onchange="cal()" /></td>
-            
-            <td>  <input  id="incidence" value="25" size="4" onchange="cal()"/></td>
-           </tr> 
-           <tr>
-            <td> Sensitivity:</td>
-            <td>Specificity:</td>
-        </tr>
-            
-            <tr>
-           
-        
-            
-                <td> <input id = "sensitivity" size="4" value="0.9" onchange="cal()"/> </td>
-            
-                <td> <input id ="specificity" size="4" value="0.85" onchange="cal()"/> </td>
-            </tr>
+                <h1 class="display-6">This is where I put things that interest me:</h1>
+                <p></p>
+               <br/>
+               <br/>
+                <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Machine Learning</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Basic Concepts</h6>
+                      <p class="card-text">particular emphasis on categorization tasks (implemented in <a href="https://dotnet.microsoft.com/en-us/apps/machinelearning-ai/ml-dotnet">ML.NET</a>) plus some interpretation of accuracy metrics.</p>
+                      <a href="./ml.html" class="card-link">see post</a>
+                    </div>
+                  </div>
+                  <br/>
+                  <br/>
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Computational Neuroscience</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">A simulation of vision</h6>
+                      <p class="card-text">A computational simulation of the retina and early visual cortex with interesting implications</p>
+                      <a href="#" class="card-link">see post</a>
+                    </div>
+                  </div>
+                  <br/>
+                  <br/>
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Image Processing</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Techniques</h6>
+                      <p class="card-text">Efficiently read and write to image files and edge detection algorithms</p>
+                      <a href="#" class="card-link">see post</a>
+                    </div>
+                  </div>
                 
-        
-    </tbody>
-</table>
-<td><button class="btn btn btn-outline-success" onclick="cal()">Calculate</button> </td>
-<div class="row justify-content-center">
-    <div class="col-2">
-        <br/>
-        
-     
-    </div>
-
-</div>
-
-
-<table class="table table-borderd">
-
-    <tbody>
-        <tr>
-            <td></td>
-            <td></td>
-			<td><strong>PREDICTED</strong></td>
-
-            <td></td>
-        </tr>
-
-        <tr>
-            
-			<td><strong>TRUTH</strong></td>
-            <td>Positive</td>
-            <td>Negative</td>
-            <td>Total</td>
-            
-        </tr>
-        <tr>
-            
-            <td>Positive</td>
-            <td id="TruePositive" class="table-success"></td>
-            <td id = "FalseNegative" class="table-danger"></td>
-            <td id = "totalTtrue"></td>
-        </tr>
-
-        <tr>
-            
-            <td>Negative</td>
-            <td id="FalsePositive" class="table-danger"></td>
-            <td id="TrueNegative" class="table-success"></td>
-            <td id ="totalTfalse"></td>
-        </tr>
-        <tr>
-            <td>Total</td>
-            
-            <td id="totalFtrue"></td>
-            <td id="totalFfalse"></td>
-            <td></td>
-
-        </tr>
-        <tr>
-            <td>Predictive Value</td>
-           <td id="PPV"></td>
-           <td id="NPV"></td>
-           <td></td>     
-        </tr>
-        <tr>
-            <td>Accuracy</td>
-            <td id = "acc"></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
 </div>
 </div>
 </div>
