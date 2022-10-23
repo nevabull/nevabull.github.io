@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neva's Blog</title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+ 
+</head>
+<body>
+    
+    
+     <!---  <p id="output">Stuff on the side</p>--> 
+     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <!-- Navbar content -->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">Neva Bull</a>
+            <button title="Navigation menu" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" >
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            
+        <div class="collapse navbar-collapse"  id="navbarNav">
+            <div class="navbar-nav">
+        
+                
+                <a class="nav-link active" href="./index.html" aria-current="true">machine learning</a>
+                <a class="nav-link" href="#">image processing</a>
+                <a class="nav-link" href="#">neuroscience</a>
+            </div> 
+        </div>   
+        </div>
+     
+     </nav>
+     
+     <div class="row">
+        <div class="col-sm-1"> <!----style="background-color: #e3ecf1;">-->
+        </div>
+        <div class="col-sm-1">
+
+        </div>
+        <div class="col-sm-8">
+
+            <div class="container-fluid">
+                <div class = "row">
+                    <br/>
+                    <br/>
+                </div>   
+    <h4 class="display-6">Getting Rich Quick with Horse Racing - Part 2</h4>
+<br/>
+    <h4>Variables</h4>
+    <p>If you are a developer, when you think of types of variables, you probably think of things like: int, long, bool, object etc.  
+        In statistics, which is fundamental to ML, variables are thought of more in terms of whether they are:  </p>
+        <ul>
+            <li>Continuous: 
+                <p>A number where the size of the number has relative meaning. For example height, 186cm tall is taller than 185.99cm.</p></li>
+            <p>Discreet variables are similar to continuous, but there are finite possabilities. This means they can be counted. For example, number of people with heart disease.</p>           
+            <li>Categorical</li>
+            <p>Nominal categorical variables are discreet, but it doesn't make sense to add them up. For example: names of colours could be: red, blue, green etc. 
+                Categorical variables are often arbitarily coded into integers with something like red = 1, blue = 2 etc.
+                It would make no sense in this case to take the average or sum of colours as the value of the integers used for coding have no relative meaning</p>
+            <p>Ordinal categorical variables are variables where the value of the category has relative meaning, e.g, weight could be categorised as: underweight = 1, normal = 2, overweight = 3 or obese = 4.</p>
+        </ul>
+<br/>  
+     <p>For ML, generally we need to get all our variables into one vector of float. 
+        For that we do some transforms like normalising continuous, discreet and ordinal variables and One Hot Encoding nominal variables.</p>
+        <p>Normalisation is just transforming the variable into a float so that the maximum value becomes 1 and the minimum becomes 0</p>
+        <p>One Hot Encoding, splits a single variable into seperate boolean variables for each category: 
+            for example, if you have a variable for colour with values of red, green or blue it will become three variables of bool (one for each colour with values of only 0 or 1).</p>
+       <h4>Data Structure</h4>
+       <p>For categorization tasks where you have a lot of examples of things (i.e. individual horses) and you want to predict some feature of them (i.e. winner or looser) 
+        you need to have the data structured such that <em><strong>1 row is 1 example.</strong></em> It's a good idea to have this in mind when you collect your data.</p>     
+</div>
+</div>
+</div>
+</body>
