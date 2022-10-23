@@ -67,13 +67,38 @@
         For that we do some transforms like normalising continuous, discreet and ordinal variables and One Hot Encoding nominal variables.</p>
         <p>Normalisation is just transforming the variable into a float so that the maximum value becomes 1 and the minimum becomes 0</p>
         <p>One Hot Encoding, splits a single variable into seperate boolean variables for each category: 
-            for example, if you have a variable for colour with values of red, green or blue it will become three variables of bool (one for each colour with values of only 0 or 1).</p>
+            for example, if you have a variable for colour with values of red, green or blue it will become three dichotomous variables (one for each colour with values of only 0 or 1).</p>
        <h4>Data Structure</h4>
        <p>For categorization tasks where you have a lot of examples of things (i.e. individual horses) and you want to predict some feature of them (i.e. winner or looser) 
         you need to have the data structured such that <em><strong>1 row is 1 example.</strong></em> It's a good idea to have this in mind when you collect your data.</p>  
         <p>For supervised ML you need to include the feature you want to predict as the 'ground truth' or 'label'. So in our example we will have a dichotomous variable (nominal with only two possabilities) - Winner or Looser.
-            We will get this from looking at past horse races and collecting some information about each horse and if it was a winner or looser. 
-        </p>   
+            We will get this from looking at past horse races, collecting information about each horse along with whether it was a winner or looser. 
+        </p> 
+        <p>
+            There is a large set of possible information about horses in a race we could collect, but for the sake of this example we will keep it simple by only collecting the following:
+        </p>
+        <p>Winner or Looser, history (positions over the last 10 races), total prize money won, percent of races won and percent of races placed in top 3.</p> 
+        <p><strong>Comparing Apples With Apples</strong></p> 
+        <p>We immediately have a problem with this data structure. All races are not equal. Some races are for very successful horses and have large prize money and some are less so. Some are for experienced horses and some are for newcomers</p>
+        <p>So we need a way to compare horses within each race - a way to find the best horse out of the set in the race. One way to do this is to normalise the continous variables within each race.
+           This will mean we have a relative measure of each of our continuous variables for every horse. 
+        </p>
+        <p>The data for a race will end up looking like this:</p>
+<pre>
+Winner  ID      History         Money           WinPcnt                 PlacePcnt
+false	1	70x88x45x7	0.359375	0.681818181818182	0.414519906323185
+false	2	56x71x5603	0.3125	        0.613636363636364	0.44847775175644
+false	3	1713332x76	0.546875	0.738636363636364	1
+false	4	2x4516x304	0.5	        0.715909090909091	0.400468384074941
+false	5	31541x0000	0.328125	0.477272727272727	0.675644028103044
+true	6	111124x2x1	1	        0.931818181818182	0.250585480093677
+false	7	1325110269	0.296875	0.477272727272727	0.398126463700234
+false	8	4440x70125	0.390625	0.511363636363636	0.168618266978923
+false	9	41535558x8	0.203125	0.454545454545455	0.546838407494145
+false	10	42113x1112	0.984375	1	                0.5
+</pre>
+<p>Then we just append all races into one big long list of rows where each row is one horse. The ID column is the number the horse is assigned in the race. 
+    This number is picked at random - it does not add information regarding if the horse will win, therefore it will not be included in training. We keep it as we can use it later to identify horses predicted to win or loose.</p>
 </div>
 </div>
 </div>
