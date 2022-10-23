@@ -54,20 +54,22 @@
         In statistics, which is fundamental to ML, variables are thought of more in terms of whether they are:  </p>
         <ul>
             <li>Continuous: 
-                <p>A number where the size of the number has relative meaning. For example height, 186cm tall is taller than 185.99cm.</p></li>
-            <p>Discreet variables are similar to continuous, but there are finite possabilities. This means they can be counted. For example, number of people with heart disease.</p>           
+                <p>- A number where the size of the number has relative meaning. For example height, 186cm tall is taller than 185.99cm.</p></li>
+            <p>- Discreet variables are similar to continuous, but there are finite possabilities. This means they can be counted. For example, number of people with heart disease.</p>           
             <li>Categorical</li>
-            <p>Nominal categorical variables are discreet, but it doesn't make sense to add them up. For example: names of colours could be: red, blue, green etc. 
+            <p>- Nominal categorical variables are discreet, but it doesn't make sense to add them up. For example: names of colours could be: red, blue, green etc. 
                 Categorical variables are often arbitarily coded into integers with something like red = 1, blue = 2 etc.
                 It would make no sense in this case to take the average or sum of colours as the value of the integers used for coding have no relative meaning</p>
-            <p>Ordinal categorical variables are variables where the value of the category has relative meaning, e.g, weight could be categorised as: underweight = 1, normal = 2, overweight = 3 or obese = 4.</p>
+            <p>- Ordinal categorical variables are variables where the value of the category has relative meaning, e.g, weight could be categorised as: underweight = 1, normal = 2, overweight = 3 or obese = 4.</p>
         </ul>
 <br/>  
      <p>For ML, generally we need to get all our variables into one vector of float. 
         For that we do some transforms like normalising continuous, discreet and ordinal variables and One Hot Encoding nominal variables.</p>
-        <p>Normalisation is just transforming the variable into a float so that the maximum value becomes 1 and the minimum becomes 0</p>
-        <p>One Hot Encoding, splits a single variable into seperate boolean variables for each category: 
+        <p>Normalisation is just transforming the variable into a float so that the maximum value becomes 1 and the other values are their relative fraction of the maximum. 
+        This can also be done such that the minimum becomes 0. ML.NET comes with methods that do this for you. Check out the <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.ml.normalizationcatalog?view=ml-dotnet-2.0.0">NormalizationCatalog Class</a> </p>
+        <p>One Hot Encoding, splits a single variable into seperate dichotomous variables for each category: 
             for example, if you have a variable for colour with values of red, green or blue it will become three dichotomous variables (one for each colour with values of only 0 or 1).</p>
+
        <h4>Data Structure</h4>
        <p>For categorization tasks where you have a lot of examples of things (i.e. individual horses) and you want to predict some feature of them (i.e. winner or looser) 
         you need to have the data structured such that <em><strong>1 row is 1 example.</strong></em> It's a good idea to have this in mind when you collect your data.</p>  
@@ -99,6 +101,7 @@ false	10	42113x1112	0.984375	1	                0.5
 </pre>
 <p>Then we just append all races into one big long list of rows where each row is one horse. The ID column is the number the horse is assigned in the race. 
     This number is picked at random - it does not add information regarding if the horse will win, therefore it will not be included in training. We keep it as we can use it later to identify horses predicted to win or loose.</p>
+    <p>Now we have our data together, let's write some code and do some training in <a href="./ml3.html">Part 3</a></p>
 </div>
 </div>
 </div>
