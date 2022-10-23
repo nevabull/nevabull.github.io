@@ -66,7 +66,7 @@
      <p>For ML, generally we need to get all our variables into one vector of float. 
         For that we do some transforms like normalising continuous, discreet and ordinal variables and One Hot Encoding nominal variables.</p>
         <p>Normalisation is just transforming the variable into a float so that the maximum value becomes 1 and the other values are their relative fraction of the maximum. 
-        This can also be done such that the minimum becomes 0. ML.NET comes with methods that do this for you. Check out the <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.ml.normalizationcatalog?view=ml-dotnet-2.0.0">NormalizationCatalog Class</a> </p>
+        This can also be done such that the minimum becomes 0. ML.NET comes with methods that do this for you. Check out the <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.ml.normalizationcatalog?view=ml-dotnet-2.0.0">NormalizationCatalog Class.</a> </p>
         <p>One Hot Encoding, splits a single variable into seperate dichotomous variables for each category: 
             for example, if you have a variable for colour with values of red, green or blue it will become three dichotomous variables (one for each colour with values of only 0 or 1).</p>
 
@@ -83,7 +83,7 @@
         <p><strong>Comparing Apples With Apples</strong></p> 
         <p>We immediately have a problem with this data structure. All races are not equal. Some races are for very successful horses and have large prize money and some are less so. Some are for experienced horses and some are for newcomers</p>
         <p>So we need a way to compare horses within each race - a way to find the best horse out of the set in the race. One way to do this is to normalise the continous variables within each race.
-           This will mean we have a relative measure of each of our continuous variables for every horse. 
+           This will result in a relative measure of each of our continuous variables in every row. 
         </p>
         <p>The data for a race will end up looking like this:</p>
 <pre>
@@ -100,7 +100,7 @@ false	9	41535558x8	0.203125	0.454545454545455	0.546838407494145
 false	10	42113x1112	0.984375	1	                0.5
 </pre>
 <p>Then we just append all races into one big long list of rows where each row is one horse. The ID column is the number the horse is assigned in the race. 
-    This number is picked at random - it does not add information regarding if the horse will win, therefore it will not be included in training. We keep it as we can use it later to identify horses predicted to win or loose.</p>
+    This number is picked at random - it does not add information regarding if the horse will win, therefore it will not be included in training. We keep it, as we can use it later to identify horses predicted to win or loose.</p>
     <p>Now we have our data together, let's write some code and do some training in <a href="./ml3.html">Part 3</a></p>
 </div>
 </div>
