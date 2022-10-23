@@ -78,19 +78,24 @@
                 </div>     
 <!--<input type="text" id="inp" value="10" onchange="calculate()"> -->
 
-<h1 class="display-5">Machine Learning Concepts</h1>
+<h1 class="display-6">Machine Learning Musings</h1>
+
 <br/>
 <p>
     Machine learning (ML) techiniques have become amazingly good in recent years and are changing the world while you read this. 
     The great news is that there are now freely available tools that let anyone with a little programming skill stand on the shoulders of the giants and dive right in.
         In this blog we will walk through a ML task using a great example of one of these tools, (<a href="https://dotnet.microsoft.com/en-us/apps/machinelearning-ai/ml-dotnet">ML.NET</a>).
     </p> 
-    <p>The example we will use is: Predicting the winners of horse races!</p>
-
+    <p>The example we will use is: Predicting the winners of horse races.</p>
+<h4>Getting Rich Quick with Horse Racing - Part 1</h4>
+<br/>
 <h5>Step 1: Make a clear statement of your objectve. </h5>
-<p>In our horse racing task our aim is to make a profit.</p>
-<p>To make a profit we need to not bet on many loosers, at least not wager more on loosers than on winners.</p> 
-<p>To put this more formally, and in a way that is testable, we can phrase it like this: <em>The False Positive Rate on unseen examples must be lower than the average pay out for a winner.</em> </p>
+<p>Let's be blunt: The aim is to make a profit.</p>
+<p>To make a profit we need to not bet on too many loosers, at least not wager more on loosers than we win on winners. 
+    We need the odds that the algorithm gets it wrong - i.e. predicts a horse to win when it doesn't (False Positive Rate) to be lower than the average return on each correct winning prediction.
+For example, if the average win pays double your wager, then the algorithm needs to have less than 50% False Positive Rate.</p> 
+<p>To put this more formally, and in a way that is testable, we can phrase it like this: <em>The False Positive Rate must be lower than the average pay out for a winner.</em> </p>
+<p>One more thing to consider: this goal must be achieved for new, 'unseen' data, that has not been used in training the algorithm. </p>
 
 <h5>Step 2: Plan how to evaluate the model</h5>
 <p>
@@ -115,11 +120,7 @@ For a technical review see <a href = "https://www.sciencedirect.com/science/arti
 </p>
 
 
-
-
-
-
-<h2 class="display-6">Interactive Confusion Matrix</h2>
+<h4>Interactive Confusion Matrix</h4>
 <br/>
 
 <table class="table table-borderless">
@@ -217,6 +218,14 @@ For a technical review see <a href = "https://www.sciencedirect.com/science/arti
         </tr>
     </tbody>
 </table>
+<br/>
+<p> To keep things simple, lets assume the average return on a successful bet is double the wager.  Because we started with Step 1 and made a clear statement of our objective, we know that we need the Positive Predictive Value to be greater than 0.5. 
+    Now we need to know the <em>Incidence</em> of winners.  Horse races can have up to 24 runners in them, if the average turns out to be around 11, the incidence of winners will be 1/11 or 9% (there is only 1 winner in a race). 
+</p>
+<p>
+    Try putting 9 in the incidence box in the table above and test what Sensitivity (True Positive Rate) and Specificity (True Negative Rate) we will need to get the Predictive Value above 0.5.
+</p>
+<p> Now we have all the hard thinking stuff out of the way, we can try it out!  </p>
 </div>
 </div>
 </div>
