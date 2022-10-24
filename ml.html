@@ -89,6 +89,14 @@
     <p>The example we will use is: Predicting the winners of horse races.</p>-->
 <h4 class="display-6">Getting Rich Quick with Horse Racing - Part 1</h4>
 <br/>
+<p><em>Note: Gambling is highly addicitive and I really don't recommend it. I chose this example, because it illustrates some interesting points about probability, not because I think it will actually make anybody rich. 
+     Gambling, including horse racing, is designed to make profit for the people running it. This means it is designed to ensure that the people betting on it will loose in the long run.
+    Even if you do find a 'system' that works, you may find you get banned by the organisers! </em></p>
+    <p>There are two steps that are required before you embark on any ML classification adventure; 
+        <ol>
+            <li>Figure out exactly what the aim is.</li>
+            <li>Figure out how you are going to tell if you can achieve this aim.</li>
+        </ol> </p>
 <h5>Step 1: Make a clear statement of your objectve. </h5>
 <p>Let's be blunt: The aim is to make a profit.</p>
 <p>To make a profit we need to not bet on too many loosers, at least not wager more on loosers than we win on winners. 
@@ -103,16 +111,17 @@ For example, if the average win pays double your wager, then the algorithm needs
 </p>
 <p>
     The name <em>'confusion matrix'</em> is a good name, because it can be remarkably <em>confusing</em>. There are many ways to add, subtract and divide the cells in the table that give quite different measures of performance. 
-    Unfortunately many of these measures have multiple names that mean the same thing. For example what is commonly expressed in medicine as <em>specificity</em> is also known as <em>selectivity</em> or <em>true negative rate</em>  
-.  Check out <a href="https://en.wikipedia.org/wiki/Sensitivity_and_specificity">https://en.wikipedia.org/wiki/Sensitivity_and_specificity</a> for a basic list with formula.  
-For a technical review see <a href = "https://www.sciencedirect.com/science/article/abs/pii/S0306457309000259">Sokolova and Lapalme (2009)</a>. Commonly, only <em>accuracy</em> is reported, but this single number can be quite misleading.  
+    Unfortunately many of these measures have multiple names that mean the same thing. For example what is commonly expressed in medicine as <em>specificity</em> is also known as <em>selectivity</em> or <em>true negative rate</em>. 
+    <em>Sensitivity</em> is also known as the <em>True Positive Rate</em>  
+.  Check out <a href="https://en.wikipedia.org/wiki/Sensitivity_and_specificity">https://en.wikipedia.org/wiki/Sensitivity_and_specificity</a> for a list with formula.  
+For a technical review see <a href = "https://www.sciencedirect.com/science/article/abs/pii/S0306457309000259">Sokolova and Lapalme (2009)</a>. Often, only <em>accuracy</em> is reported, but this single number can be quite misleading.  
 </p>
 <p>
-    One important thing to consider is which metric is most important to you.  All classifiers, including humans, make mistakes. In the real world, on unseen data, 100% accuracy is very unlikely. 
+    One important thing to consider is which metric is most important to you. All classifiers, including humans, make mistakes. In the real world, on unseen data, 100% accuracy is very unlikely. 
     Rather, very high accuracy usually means there is a problem with the model such as overfitting. So consideration should be given to whether false positives or false negatives are least harmful. The choice is entirely dependant on the purpose of your task. 
  </p>
  <p>    
-    For example, imagine you have tested positive for a rare form of cancer (occuring in 1 in 1000 people or 0.1% <em>incidence</em>) and you are told that this test is 99% accurate with 99% sensitivity and 99% specificity.
+    For example, imagine you have been screened, without any symptoms, for a rare form of cancer (occuring in 1 in 1000 people or 0.1% <em>incidence</em>) and you are told that this test is 99% accurate with 99% sensitivity and 99% specificity.
      What would you think the chance of the test being wrong and you don't have the cancer <em>(False Positive Rate)</em>?  
      In this example the False Positive Rate is 91%! (1 - Positive Predictive Value). So you only have a 9% chance of actually having the cancer despite testing positive on what seems an excellent test.
      <p>The confusion matrix below is prefilled with these numbers:  hit 'calculate' and see for yourself. 
@@ -219,7 +228,7 @@ For a technical review see <a href = "https://www.sciencedirect.com/science/arti
     </tbody>
 </table>
 <br/>
-<p> To keep things simple, lets assume the average return on a successful bet is double the wager.  Because we started with Step 1 and made a clear statement of our objective, we know that we need the Positive Predictive Value to be greater than 0.5. 
+<p> For out horse racing example, lets assume the average return on a successful bet is double the wager.  Because we started with Step 1 and made a clear statement of our objective, we know that we need the Positive Predictive Value to be greater than 0.5. 
     Now we need to know the <em>Incidence</em> of winners.  Horse races can have up to 24 runners in them, if the average turns out to be around 11, the incidence of winners will be 1/11 or 9% (there is only 1 winner in a race). 
 </p>
 <p>
