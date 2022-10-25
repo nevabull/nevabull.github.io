@@ -57,7 +57,7 @@
                 <p>- A number where the size of the number has relative meaning. For example height, 186cm tall is taller than 185.99cm.</p></li>
             <p>- Discreet variables are similar to continuous, but there are finite possabilities. This means they can be counted and have <em>frequencies</em>. For example, number of people with heart disease.</p>           
             <li>Categorical</li>
-            <p>- Nominal categorical variables are discreet, They can be counted into frequencies, but it doesn't make sense to add them up. For example: names of colours could be: red, blue, green etc. 
+            <p>- Nominal categorical variables are discreet, They can be individually counted into frequencies, but it doesn't make sense to add them up together. For example: names of colours could be: red, blue, green etc. 
                 Categorical variables are often arbitarily coded into integers with something like red = 1, blue = 2 etc.
                 It would make no sense in this case to take the average or sum of colours as the value of the integers used for coding have no relative meaning. </p>
             <p>- Ordinal categorical variables are variables where the value of the category do have a relative meaning, e.g, weight could be categorised as: underweight = 1, normal = 2, overweight = 3 or obese = 4.</p>
@@ -71,15 +71,15 @@
             for example, if you have a variable for colour with values of red, green or blue it will become three dichotomous variables (one for each colour with values of only 0 or 1).</p>
 
        <h4>Data Structure</h4>
-       <p>For categorization tasks where you have a lot of examples of things (i.e. individual horses) and you want to predict some feature of them (i.e. winner or looser) 
+       <p>For categorization tasks where you have a lot of examples of things (i.e. individual horses) and you want to predict some feature of them (i.e. winner or loser) 
         you need to have the data structured such that <em><strong>1 row is 1 example.</strong></em> It's a good idea to have this in mind when you collect your data.</p>  
-        <p>For supervised ML you need to include the feature you want to predict as the 'ground truth' or 'label'. So in our example we will have a dichotomous variable (nominal with only two possabilities) - Winner or Looser.
-            We will get this from looking at past horse races, collecting information about each horse along with whether it was a winner or looser. 
+        <p>For supervised ML you need to include the feature you want to predict as the 'ground truth' or 'label'. So in our example we will have a dichotomous variable (nominal with only two possabilities) - Winner or loser.
+            We will get this from looking at past horse races, collecting information about each horse along with whether it was a winner or loser. 
         </p> 
         <p>
             There is a large set of possible information about horses in a race we could collect, but for the sake of this example we will keep it simple by only collecting the following:
         </p>
-        <p>Winner or Looser, history (positions over the last 10 races), total prize money won, percent of races won and percent of races placed in top 3.</p> 
+        <p>Winner or loser, history (positions over the last 10 races), total prize money won, percent of races won and percent of races placed in top 3.</p> 
         <p><strong>Comparing Apples With Apples</strong></p> 
         <p>We immediately have a problem with this data structure. All races are not equal. Some races are for very successful horses and have large prize money and some are less so. Some are for experienced horses and some are for newcomers</p>
         <p>So we need a way to compare horses within each race - a way to find the best horse out of the set in the race. One way to do this is to normalise the continous variables within each race.
@@ -100,7 +100,7 @@ false	9	41535558x8	0.203125	0.454545454545455	0.546838407494145
 false	10	42113x1112	0.984375	1	                0.5
 </pre>
 <p>Then we just append all races into one big long list of rows where each row is one horse. The ID column is the number the horse is assigned in the race. 
-    This number is picked at random - it does not add information regarding if the horse will win, therefore it will not be included in training. We keep it, as we can use it later to identify horses predicted to win or loose.</p>
+    This number is picked at random - it does not add information regarding whether horse will win, therefore it will not be included in training. We keep it, as we can use it later to identify horses predicted to win or lose.</p>
     <p>Now we have our data together, let's write some code and do some training in <a href="./ml3.html">Part 3</a></p>
 </div>
 </div>
