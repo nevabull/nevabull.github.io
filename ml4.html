@@ -90,7 +90,7 @@ but as there were so many negatives (i.e. high Class Imbalance / low Incidence),
 <p>What if we train towards a different <em>Optimizing Metric</em>? </p>
 <p>The ML.NET AutoML API provides the means to choose the optimizing metric to train towards, 
     but how to decide which metric to train towards? Since we have a small dataset and therefore training time is short, a simple solution is <em>brute force</em>.</p>
-<p>For this we can add a loop that iterates over all the available optimizing metrics:</p>
+<p>For this we can add a loop that iterates over all 8 available optimizing metrics:</p>
 <div class="d-inline-block v-align-middle fs-8 bg-light">
     <pre><code>
 for (int i=0;i<8; i++)
@@ -98,15 +98,26 @@ for (int i=0;i<8; i++)
     BinaryExperimentSettings setting = new BinaryExperimentSettings()
     {
         OptimizingMetric = (BinaryClassificationMetric)i,
-        MaxExperimentTimeInSeconds = 20,               
+        MaxExperimentTimeInSeconds = 30,               
     };
     Console.WriteLine("----------------------------");
     Console.WriteLine("Training for: " + setting.OptimizingMetric.ToString());
     Console.WriteLine("----------------------------");
     ExperimentResult<BinaryClassificationMetrics> experimentResult = mlContext.Auto()
-                .CreateBinaryClassificationExperiment(setting).Execute(trainData: traindata, validationData: testdata,
-                                            labelColumnName: "Label", preFeaturizer: preprocessPipeline, progressHandler: null);
+                .CreateBinaryClassificationExperiment(setting).Execute(trainData: traindata, validationData: testdata, 
+                                labelColumnName: "Label", preFeaturizer: preprocessPipeline, progressHandler: null); 
+    //Store the Results
+    RunDetail<BinaryClassificationMetrics> bestrun = experimentResult.BestRun;
+    BinaryClassificationMetrics mets = bestrun.ValidationMetrics;
+    ITransformer model = bestrun.Model;
+    mtrcs[i] = mets.ConfusionMatrix;
 
+    //Output the Results
+    Console.WriteLine("RESULTS FROM EXPERIMENT:");    
+    ConsoleHelper.PrintBinaryClassificationMetrics(bestrun.TrainerName, mets);
+    string mtrx = mtrcs[i].GetFormattedConfusionTable();
+    Console.Write(mtrx);
+}
     </code></pre>
     </div>
 <h4></h4>
