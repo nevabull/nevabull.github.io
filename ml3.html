@@ -59,7 +59,7 @@
     <li>Open Visual Studio and create a new .NET 6 Core console app (C#)</li>
     <li>Install the Microsoft.ML.AutoML nuget package</li>
     <li><u>Add using statements:</u></li>
-       <div class="d-inline-block v-align-middle fs-5 bg-light">
+       <div class="d-inline-block v-align-middle fs-8 bg-light">
         <pre><code>                
     using Microsoft.ML;
     using Microsoft.ML.AutoML;   
@@ -69,7 +69,7 @@
     <u>Create classes for you inputs and outputs:</u>
 <p>Notice I have set the name of coloumn 0 to 'Label' - this will be the ground truth used for training - it is true/false for winner/loser</p>
 </li>
-    <div class="d-inline-block v-align-middle fs-5 bg-light">
+    <div class="d-inline-block v-align-middle fs-8 bg-light">
         <pre><code>
             #region model input class
             public class ModelInput
@@ -127,7 +127,7 @@
      <li><u>Create the <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.ml.mlcontext?view=ml-dotnet">ML Context</a>:</u>
         <p>You only instatiate this once and it is used throughout the process of data preperatation, training, evaluatation and prediction.</p>
      </li>
-     <div class="d-inline-block v-align-middle fs-5 bg-light">
+     <div class="d-inline-block v-align-middle fs-8 bg-light">
      <pre><code>
     MLContext mlContext = new MLContext();  </code></pre>       
           </div>
@@ -135,7 +135,7 @@
      <li><u>Load the data into an <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.ml.idataview?view=ml-dotnet">IDataView</a></u>
         <p>If your data has no header with column names, then specificy 'hasHeader: false:', coloumn names col0, col1, col2... will be automatically assigned.</p>
     </li> 
-    <div class="d-inline-block v-align-middle fs-5 bg-light">
+    <div class="d-inline-block v-align-middle fs-8 bg-light">
         <pre><code>
     IDataView testDataView = mlContext.Data.LoadFromTextFile<ModelInput>(  
                 path: @"d:\data\horsedata.tsv",
@@ -149,7 +149,7 @@
         <p>Here you will do any transforms required and then concatenate your columns into one feature vector.</p>
         <p>Our numeric columns have already been normalised, so we don't need to transform them. Column 3 is text (history of recent races), so we need to apply FeaturizeText.
         It will apply a range of typical text transforms requried for ML (Text needs to be transformed into a vector of type float) - see <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.ml.textcatalog.featurizetext?view=ml-dotnet#microsoft-ml-textcatalog-featurizetext(microsoft-ml-transformscatalog-texttransforms-system-string-system-string">the documentation</a></p>
-        <div class="d-inline-block v-align-middle fs-5 bg-light">
+        <div class="d-inline-block v-align-middle fs-8 bg-light">
             <pre><code>
     var preprocessPipeline = mlContext.Transforms.Text.FeaturizeText(inputColumnName: @"col3", outputColumnName: @"Col3")      
                                .Append(mlContext.Transforms.Concatenate("Features", new[] { "Col3", "col4", "col5", "col6" })); 
@@ -158,7 +158,7 @@
         
      <li><u>Create an ITransformer by passing the data to our preprocessing pipline</u>
      <p>Then use this transomer to transform the data to a new IDataView</p>
-     <div class="d-inline-block v-align-middle fs-5 bg-light">
+     <div class="d-inline-block v-align-middle fs-8 bg-light">
         <pre><code>
     ITransformer dataPrep = preprocessPipeline.Fit(testDataView);   
     IDataView dataTransformed = dataPrep.Transform(testDataView);           
@@ -167,7 +167,7 @@
 
     <li><u>Split the transformed data into train and test sets:</u>
         
-        <div class="d-inline-block v-align-middle fs-5 bg-light">
+        <div class="d-inline-block v-align-middle fs-8 bg-light">
            <pre><code>
     DataOperationsCatalog.TrainTestData datasplit = mlContext.Data.TrainTestSplit(dataTransformed, 0.15, seed: 1);      
     IDataView traindata = datasplit.TrainSet;
@@ -176,16 +176,16 @@
        </li>
     <li><u>Run a Binary CLassification Experiment to find the best model</u></li>
     <p>The default optimising metric is Accuracy - more on that later</p>
-    <div class="d-inline-block v-align-middle fs-5 bg-light">
+    <div class="d-inline-block v-align-middle fs-8 bg-light">
         <pre><code>
     ExperimentResult<BinaryClassificationMetrics> experimentResult = mlContext.Auto()
             .CreateBinaryClassificationExperiment(setting).Execute(trainData: traindata, validationData: testdata,  
                          labelColumnName: "Label", preFeaturizer: preprocessPipeline, progressHandler: null);
         </code></pre></div>
     </li>
-    <li>Get the Results:
+    <li><u>Display the Results:</u>
         <p>ConsoleHelper is in the common namespance and can be found in the <a href="https://github.com/dotnet/machinelearning-samples/tree/main/samples/csharp/common">machinelearning-samples in the dotnet GitHub</a></p>
-        <div class="d-inline-block v-align-middle fs-5 bg-light">
+        <div class="d-inline-block v-align-middle fs-8 bg-light">
             <pre><code>
     RunDetail<BinaryClassificationMetrics> bestrun = experimentResult.BestRun;
     BinaryClassificationMetrics mets = bestrun.ValidationMetrics;
@@ -197,8 +197,8 @@
             </code></pre></div>
     </li>
 
-<li><u>Have a look at the results:</u><br/>
-    <div class="d-inline-block v-align-middle fs-5 bg-light">
+<li><u>Output:</u><br/>
+    <div class="d-inline-block v-align-middle fs-8 bg-light">
         <pre><code>
             RESULTS FROM EXPERIMENT:
             Optimizing metric: Accuracy
@@ -228,7 +228,7 @@
 <br/>
 </ul>
 <br/>
-<h5><u>Interpret the Results:</u></h5>
+<h5 class="display-6">Interpret the Results:</h5>
     <p><h5>Are we going to get rich?</h5></p>
      <ol>
         <li><strong>Accuracy is 92% - GREAT</strong><p></p></li>
@@ -256,6 +256,7 @@
       <li class="page-item"><a class="page-link" href="./ml2.html">2</a></li>
       <li class="page-item"><a class="page-link" href="./ml3.html">3</a></li>
       <li class="page-item"><a class="page-link" href="./ml4.html">4</a></li>
+      <li class="page-item"><a class="page-link" href="./ml5.html">5</a></li>
       <li class="page-item">
         <a class="page-link" href="./ml4.html" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
