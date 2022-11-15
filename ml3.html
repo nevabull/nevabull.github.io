@@ -66,7 +66,7 @@
     using Microsoft.ML.Data;
  </code></pre></div>
  <li>
-    <u>Create classes for you inputs and outputs:</u>
+ <!--   <u>Create classes for you inputs and outputs:</u>
 <p>Notice I have set the name of coloumn 0 to 'Label' - this will be the ground truth used for training - it is true/false for winner/loser</p>
 </li>
     <div class="d-inline-block v-align-middle fs-8 bg-light">
@@ -123,17 +123,40 @@
             
             }
 </code></pre></div>                    
- </li>
+ </li> -->
      <li><u>Create the <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.ml.mlcontext?view=ml-dotnet">ML Context</a>:</u>
-        <p>You only instatiate this once and it is used throughout the process of data preperatation, training, evaluatation and prediction.</p>
+        <p>You only instantiate this once and it is used throughout the process of data preperatation, training, evaluatation and prediction.</p>
      </li>
      <div class="d-inline-block v-align-middle fs-8 bg-light">
      <pre><code>
-    MLContext mlContext = new MLContext();  </code></pre>       
+    MLContext ctx = new MLContext();  </code></pre>       
           </div>
 
-     <li><u>Load the data into an <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.ml.idataview?view=ml-dotnet">IDataView</a></u>
-        <p>If your data has no header with column names, then specificy 'hasHeader: false:', coloumn names col0, col1, col2... will be automatically assigned.</p>
+     <li><u>Load the data into an <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.ml.idataview?view=ml-dotnet">IDataView</a>.</u>
+        <p>There are a number of ways to load data in ML.NET (<a href="https://learn.microsoft.com/en-us/dotnet/machine-learning/how-to-guides/load-data-ml-net">see this guide for examples</a>). 
+     We will use automated ColumnInference which does most of the work in a single line of code. Then load the data and split it into test and train datasets.</p>
+     </li>
+     <div class="d-inline-block v-align-middle fs-8 bg-light">
+        <pre><code>
+    var dataPath = Path.GetFullPath(@"..\horsedata.csv");
+    
+    ColumnInferenceResults columnInference =
+        ctx.Auto().InferColumns(dataPath, labelColumnName: "Win");
+        
+    // Create text loader
+    TextLoader loader = ctx.Data.CreateTextLoader(columnInference.TextLoaderOptions);
+        
+    // Load data into IDataView
+    IDataView data = loader.Load(dataPath);
+
+    // Create a Test/Train Split
+    TrainTestData trainValidationData = ctx.Data.TrainTestSplit(data, testFraction: 0.2);  
+
+        </code>
+        </pre>
+        </div>
+
+      <!--  <p>If your data has no header with column names, then specificy 'hasHeader: false:', coloumn names col0, col1, col2... will be automatically assigned.</p> 
     </li> 
     <div class="d-inline-block v-align-middle fs-8 bg-light">
         <pre><code>
@@ -144,10 +167,49 @@
                 allowQuoting: true,
                 allowSparse: false
                 );   </code></pre>       
-             </div> 
-      <li><u>Create a preprocessing pipeline.</u>
-        <p>Here you will do any transforms required and then concatenate your columns into one feature vector.</p>
-        <p>Our numeric columns have already been normalised, so we don't need to transform them. Column 3 is text (history of recent races), so we need to apply FeaturizeText.
+             </div> -->
+      <li><u>Create a Sweepable Pipeline.</u>
+        <p>A SweepablePipline includes the data preprocessing steps and machine learning pipline to use for training the model.</p>
+        <p>Data preprocessing involves column transforms and concatenatation of the columns into one feature vector.</p>
+        <p>ML.NET AutoML provides a quick way to automate this step with the Featurizer method. 
+        This method takes the columns found from InferColumns, featurizes them according to their type (categorical, numerical or string) and then concatenates them into a single output column of Features. </p>
+        <p>To automate finding the best machine learning pipeline, we append a AutoML experiment to the SweepablePiplene. In this case it's a Binary Classification experiment.</p>
+            
+        <div class="d-inline-block v-align-middle fs-8 bg-light">
+            <pre><code>
+    SweepablePipeline pipeline =
+        ctx.Auto().Featurizer(data, columnInformation: columnInference.ColumnInformation)
+           .Append(ctx.Auto().BinaryClassification(labelColumnName: columnInference.ColumnInformation.LabelColumnName));  
+        </code>
+        </pre>
+        </div> 
+    <li><u>Run the AutoML experiment and Output Evaluation Metics.</u></li>  
+    <div class="d-inline-block v-align-middle fs-8 bg-light">
+        <pre><code>
+        AutoMLExperiment experiment = ctx.Auto().CreateExperiment();
+
+        experiment
+            .SetPipeline(pipeline)
+            .SetBinaryClassificationMetric(BinaryClassificationMetric.Accuracy, labelColumn: columnInference.ColumnInformation.LabelColumnName)
+            .SetTrainingTimeInSeconds(30)
+            .SetDataset(trainValidationData);
+                      
+        TrialResult experimentResults = experiment.Run(); 
+                
+        // Get the Model found by the Experiment
+        ITransformer model = experimentResults.Model;
+        
+        // Consume the model on the Test Set
+        var PredictedData = model.Transform(trainValidationData.TestSet); 
+
+        // Calculate and output evaluation metrics
+        BinaryClassificationMetrics metrics = ctx.BinaryClassification.Evaluate(PredictedData, labelColumnName: "Win");
+        Console.WriteLine("Accuracy = " + metrics.Accuracy);
+        Console.WriteLine(metrics.ConfusionMatrix.GetFormattedConfusionTable());
+    </code>
+    </pre>
+    </div>                
+    <!--    <p>Our numeric columns have already been normalised, so we don't need to transform them. Column 3 is text (history of recent races), so we need to apply FeaturizeText.
         It will apply a range of typical text transforms requried for ML (Text needs to be transformed into a vector of type float) - see <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.ml.textcatalog.featurizetext?view=ml-dotnet#microsoft-ml-textcatalog-featurizetext(microsoft-ml-transformscatalog-texttransforms-system-string-system-string">the documentation</a></p>
         <div class="d-inline-block v-align-middle fs-8 bg-light">
             <pre><code>
@@ -155,7 +217,7 @@
                                .Append(mlContext.Transforms.Concatenate("Features", new[] { "Col3", "col4", "col5", "col6" })); 
                             </code></pre>
         </li> 
-        
+    
      <li><u>Create an ITransformer by passing the data to our preprocessing pipline</u>
      <p>Then use this transomer to transform the data to a new IDataView</p>
      <div class="d-inline-block v-align-middle fs-8 bg-light">
@@ -196,10 +258,10 @@
     Console.WriteLine(mtrx.GetFormattedConfusionTable());               
             </code></pre></div>
     </li>
-
+--> 
 <li><u>Output:</u><br/>
     <div class="d-inline-block v-align-middle fs-8 bg-light">
-        <pre><code>
+       <!-- <pre><code>
             RESULTS FROM EXPERIMENT:
             Optimizing metric: Accuracy
             ************************************************************
@@ -224,6 +286,18 @@
              negative ||        6 |      594 | 0.9900
                       ||======================
             Precision ||   0.5385 |   0.9310 |
+</code></pre>-->
+<pre><code>   
+    Accuracy = 0.9075723830734966
+    TEST POSITIVE RATIO:    0.0947 (85.0/(85.0+813.0))
+    Confusion table
+              ||======================
+    PREDICTED || positive | negative | Recall
+    TRUTH     ||======================
+     positive ||        2 |       83 | 0.0235
+     negative ||        0 |      813 | 1.0000
+              ||======================
+    Precision ||   1.0000 |   0.9074 |
 </code></pre>
 <br/>
 </ul>
@@ -231,16 +305,12 @@
 <h5 class="display-6">Interpret the Results:</h5>
     <p><h5>Are we going to get rich?</h5></p>
      <ol>
-        <li><strong>Accuracy is 92% - GREAT</strong><p></p></li>
-        <li><strong>BUT - Positive Precision (Positive Predictive Value) is barely above chance at 54%</strong>
-            <p>The algorithm only picked 13 winners, and of those it was only correct for 7. So we would have bet on 13 horses and only won on 7 of them.</p>
-            <p><em>Why is Positive Precision so Low while Accuracy is High?</em></p>
-            <p>    -  The TEST POSITIVE RATIO (Incidence) is only 7.83%, (there were 600 losers to 51 winners). </p>
-            <p>    -  NEGATIVE RECALL (SPECIFICITY) was great at 99%, but this still means 1% of 600 (6) were predicted as winners when they were not.</p>
-            <p>    -  POSITIVE RECALL (SENSITIVITY) was only 13.7% meaning only 7 of the 51 winners were predicted correctly.</p>
-            <p><em>We need to work on improving the Positive Recall and/or Postitive Precision</em></p>
+        <li><strong>Accuracy is 90.7% - GREAT</strong><p></p></li>
+        <li><strong>Positive Precision (Positive Predictive Value) is 1 - perfect!  BUT:</strong>
+            <p>The algorithm only picked 2 winners, from 85, In other words our Positive Recall (Sensitivity) was only 2.3%. This will take the 'Quick' out of 'Get rich Quick'. </p>
+            
         </li>
-        <li><strong>We don't know if this will generalise to new races.</strong> <p>i.e. we don't yet know how much chance was involved in the result. We could have got either lucky or unlucky with our test train split</p></li>
+        <li><strong>Important: We don't know how this will generalise to new races.</strong> <p>i.e. we don't yet know how much chance was involved in the result. We could have got either lucky or unlucky with our test train split.</p></li>
      </ol>
 
 <h6>In <a href="./ml4.html">Part 4</a> we will try training to target different optimizing metrics and employing cross-validation to see how generalisable our model is.</h6>
