@@ -438,7 +438,7 @@
         <li>We can run the saved model on the whole dataset like this:</li>
         <div class="d-inline-block v-align-middle fs-8 bg-light">
         <pre><code>
-    var dataPath = Path.GetFullPath(@"d:\common_ml\horse\horsedata_all.csv");    
+    var dataPath = Path.GetFullPath(@".\horsedata_all.csv");    
     ITransformer predictor = ctx.Model.LoadWithDataLoader(@".\balanced_horses.zip", out var dvLoader);  
     IDataView alldata = dvLoader.Load(dataPath);
     var predictions = predictor.Transform(alldata);
