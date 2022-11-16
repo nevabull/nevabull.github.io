@@ -439,7 +439,7 @@
         <div class="d-inline-block v-align-middle fs-8 bg-light">
         <pre><code>
     var dataPath = Path.GetFullPath(@"d:\common_ml\horse\horsedata_all.csv");    
-    ITransformer predictor = ctx.Model.LoadWithDataLoader(@"D:\common_ml\horse\balanced_horses.zip", out var dvLoader);  
+    ITransformer predictor = ctx.Model.LoadWithDataLoader(@".\balanced_horses.zip", out var dvLoader);  
     IDataView alldata = dvLoader.Load(dataPath);
     var predictions = predictor.Transform(alldata);
     BinaryClassificationMetrics mets = ctx.BinaryClassification.Evaluate(predictions, labelColumnName: "Win");
@@ -468,7 +468,7 @@
             <p>Note that the positive precision was only 39%.</p> 
             <p><strong>Are we going to get rich quick?</strong></p>
             <p>Our statement of the objective was: 
-                1 divided by the Positive Precision must be lower than the average pay out for a winner.
+                <em>1 divided by the Positive Precision must be lower than the average pay out for a winner.</em> (Go to <a href="ml.html">Part 1</a> if you missed this bit) 
             </p>
             <p>Positive Precision was 0.39.  So we need the average return on each successful bet to be more than 2.56 (1/0.39) times the amount wagered.
                In the example above, if we had wagered $1 on all 1006 horses that were predicted to win, and the average return on the 393 winning wagers was $2.56, we would end up with our $1006 dollars back. 
@@ -478,7 +478,9 @@
         </li>        
      </ul>   
         </li>
-        <li><strong>Important: We don't know how this will generalise to new races.</strong> <p>i.e. we don't yet know how much chance was involved in the result. We could have got either lucky or unlucky with our test train split.</p></li>
+        <li><strong>Important: We don't know how this will generalise to new races.</strong> 
+            <p>We don't know how much chance was involved in the result.</p>
+        </li>
      </ul>
 
 <!--<h6>In <a href="./ml4.html">Part 4</a> we will try training to target different optimizing metrics and employing cross-validation to see how generalisable our model is.</h6>-->
