@@ -102,7 +102,8 @@
 <p>To make a profit we need to not bet on too many losers, at least not wager more on losers than we win on winners. 
     We need the odds that the algorithm gets it wrong - i.e. predicts a horse to win when it doesn't (False Positive Rate) to be lower than the average return on each correct winning prediction.
 For example, if the average win pays double your wager, then the algorithm needs to have less than 50% False Positive Rate.</p> 
-<p>To put this more formally, and in a way that is testable, we can phrase it like this: <em>The False Positive Rate must be lower than the average pay out for a winner.</em> </p>
+<p>Another way to think about this is that we need the average pay out to be greater than the proportion of horses we bet on that actually win.  To put this more formally, and in a way that is testable, we can phrase it like this: 
+    <em>1 divided by the Positive Precision must be lower than the average pay out for a winner.</em> </p>
 <p>One more thing to consider: this goal must be achieved for new, 'unseen' data, that has not been used in training the algorithm. </p>
 
 <h5>Step 2: Plan how to evaluate the model</h5>
@@ -246,7 +247,7 @@ For a technical review see <a href = "https://www.sciencedirect.com/science/arti
       <li class="page-item"><a class="page-link" href="./ml.html">1</a></li>
       <li class="page-item"><a class="page-link" href="./ml2.html">2</a></li>
       <li class="page-item"><a class="page-link" href="./ml3.html">3</a></li>
-      <li class="page-item"><a class="page-link" href="./ml4.html">4</a></li>
+    <!--  <li class="page-item"><a class="page-link" href="./ml4.html">4</a></li> -->
       <li class="page-item">
         <a class="page-link" href="./ml2.html" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>

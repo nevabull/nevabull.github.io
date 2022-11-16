@@ -226,6 +226,9 @@
         // Get the Model found by the Experiment
         ITransformer model = experimentResults.Model;
         
+        // Save the model with it's TextLoader for later use
+        ctx.Model.Save(model, loader, @".\balanced_horses.zip");
+
         // Consume the model on the Test Set
         var PredictedData = model.Transform(trainValidationData.TestSet); 
 
@@ -331,9 +334,9 @@
 <br/>
 <h5 class="display-6">Interpret the Results:</h5>
     <p><h5>Are we going to get rich?</h5></p>
-     <ol>
+     <ul>
         <li><strong>Accuracy is 74.3% - which looks pretty good</strong><p></p></li>
-        <li><strong>Positive Precision (Positive Predictive Value) is 70.9% - BUT:</strong>
+        <li><strong>Positive Precision (Positive Predictive Value) is 70.9% - Great! BUT:</strong>
             <p>This is on artificially balanced data (we deleted losers to improve the proportions). 
                 If we use the interactive confusion matrix and plug in the postive recall (sensitivy) of 0.6094 and negative recall (specificy) of 0.8333 with the ACTUAL class balance (Incidence ~ 9%), we get this: </p>
    
@@ -429,12 +432,55 @@
                         </tr>
                     </tbody>
                 </table>
-            <p>With a Positive Predictive Value of only 27% we are definitately not going to get rich!</p>
+    <p>With a Positive Predictive Value of only 27% we are definitately not going to get rich!</p>
+    <p>Now we see what the results look like if we use the model we trained above to predict all our data</p>
+     <ul>
+        <li>We can run the saved model on the whole dataset like this:</li>
+        <div class="d-inline-block v-align-middle fs-8 bg-light">
+        <pre><code>
+    var dataPath = Path.GetFullPath(@"d:\common_ml\horse\horsedata_all.csv");    
+    ITransformer predictor = ctx.Model.LoadWithDataLoader(@"D:\common_ml\horse\balanced_horses.zip", out var dvLoader);  
+    IDataView alldata = dvLoader.Load(dataPath);
+    var predictions = predictor.Transform(alldata);
+    BinaryClassificationMetrics mets = ctx.BinaryClassification.Evaluate(predictions, labelColumnName: "Win");
+    Console.WriteLine("Accuracy = " + mets.Accuracy);
+    Console.WriteLine(mets.ConfusionMatrix.GetFormattedConfusionTable());          
+        </code></pre></div>
+        <li>Output:</li>
+        <div class="d-inline-block v-align-middle fs-8 bg-light">
+            <pre><code>
+    Accuracy = 0.8519199816049666
+    TEST POSITIVE RATIO:    0.0975 (424.0/(424.0+3925.0))
+    Confusion table
+              ||======================
+    PREDICTED || positive | negative | Recall
+    TRUTH     ||======================
+     positive ||      393 |       31 | 0.9269
+     negative ||      613 |    3,312 | 0.8438
+              ||======================
+    Precision ||   0.3907 |   0.9907 |
+                
+                </code></pre></div>
+        <li>
+            <p>We did get a performance boost from training on a balanced data set.</p>
+            <p>We now have a sensitivity of 92.6%, specificity of 84.4% and 85% accuracy.</p>
+            <p>Unfortunately though, the postivie precision was only 39%.</p> 
+            <p><strong>Are we going to get rich quick?</strong></p>
+            <p>Our statement of the objective was: 
+                1 divided by the Positive Precision must be lower than the average pay out for a winner.
+            </p>
+            <p>Positive Precision was 0.39%.  So we need the average return on each successful bet to be more than 2.56 (1/0.39) times the amount wagered.
+               In the example above, if we had wagered $1 on all 1006 horses that were predicted to win, and the average return on the 393 winning wagers was $2.56, we would end up with our $1006 dollars back. 
+               Therefore we need the winners to average more than $2.56 payout to make any money. If we can get a higher positive precision, then this required payout will be less.    
+            </p>    
+
+        </li>        
+     </ul>   
         </li>
         <li><strong>Important: We don't know how this will generalise to new races.</strong> <p>i.e. we don't yet know how much chance was involved in the result. We could have got either lucky or unlucky with our test train split.</p></li>
-     </ol>
+     </ul>
 
-<h6>In <a href="./ml4.html">Part 4</a> we will try training to target different optimizing metrics and employing cross-validation to see how generalisable our model is.</h6>
+<!--<h6>In <a href="./ml4.html">Part 4</a> we will try training to target different optimizing metrics and employing cross-validation to see how generalisable our model is.</h6>-->
 <br/>
 <nav aria-label="Page navigation">
     <ul class="pagination">
@@ -446,8 +492,8 @@
       <li class="page-item"><a class="page-link" href="./ml.html">1</a></li>
       <li class="page-item"><a class="page-link" href="./ml2.html">2</a></li>
       <li class="page-item"><a class="page-link" href="./ml3.html">3</a></li>
-      <li class="page-item"><a class="page-link" href="./ml4.html">4</a></li>
-      <li class="page-item"><a class="page-link" href="./ml5.html">5</a></li>
+    <!--  <li class="page-item"><a class="page-link" href="./ml4.html">4</a></li>
+      <li class="page-item"><a class="page-link" href="./ml5.html">5</a></li> -->
       <li class="page-item">
         <a class="page-link" href="./ml4.html" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
