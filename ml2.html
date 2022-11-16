@@ -87,7 +87,7 @@
         </p>
         <p>The data for a race will end up looking like this:</p>
 <pre>
-Winner  ID      History         Money           WinPcnt                 PlacePcnt
+Win     ID      History         Money           WinPcnt                 PlacePcnt
 false	1	70x88x45x7	0.359375	0.681818181818182	0.414519906323185
 false	2	56x71x5603	0.3125	        0.613636363636364	0.44847775175644
 false	3	1713332x76	0.546875	0.738636363636364	1
@@ -101,6 +101,23 @@ false	10	42113x1112	0.984375	1	                0.5
 </pre>
 <p>Then we just append all races into one big long list of rows where each row is one horse. The ID column is the number the horse is assigned in the race. 
     This number is picked at random - it does not add information regarding whether horse will win, therefore it will not be included in training. We keep it, as we can use it later to identify horses predicted to win or lose.</p>
+ 
+ <p><strong>Class Balance</strong></p>
+    <p>Our dataset has 4,350 horses in it, of which 424 won their race. So the incidence of winners is 9.7%. 
+     This poses a problem. If we train on such unbalanced data, the algorithm is likely to converge on predicting almost all cases as losers.</p>
+     <p>A workaround for this is to somehow artificially 'balance' the classes, this can be done by:</p>
+     <ul>
+        <li>Oversampling the under-represented class. 
+            <p>i.e. collecting more examples of them, or if this is not possible you can make 'synthetic' data by changing real data by a little bit. 
+            (for example: rotating images when doing image recognition tasks)
+            This has the disadvantage that the new data is simply reinforcing the existing data and may not represent the diversity of data in the real world.
+            Think what happens if your image classification task is dogs versus cats and you only have a few dogs who happen to most are labradors. 
+            Your model will probably be good at telling a labrador from a cat, but not great at any dog versus any cat.  
+            </p></li>
+        <li>Undersampling the over-represented class.
+            <p>i.e. removing some examples from the larger class. This has the disadvantage of reducing your training set, but it won't reinforce bias.</p></li>
+     </ul> 
+     <p>For simplicity we will undersample by randomly selecting a smaller set of losers so that the classes are roughly balanced.</p>
     <p>Now we have our data together, let's write some code and do some training in <a href="./ml3.html">Part 3</a></p>
 
     <br/>
