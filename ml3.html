@@ -462,14 +462,15 @@
                 
                 </code></pre></div>
         <li>
-            <p>We did get a performance boost from training on a balanced data set.</p>
-            <p>We now have a sensitivity of 92.6%, specificity of 84.4% and 85% accuracy.</p>
-            <p>Unfortunately though, the postivie precision was only 39%.</p> 
+            
+            <p>We now have a sensitivity of 92.6%, specificity of 84.4% and 85% accuracy. This has to be interpreted with caution, because the data we are predicting includes the data we trained with! </p>
+            <p>It's likely it will not perform this well on data it has not seen.</p>
+            <p>Note that the positive precision was only 39%.</p> 
             <p><strong>Are we going to get rich quick?</strong></p>
             <p>Our statement of the objective was: 
                 1 divided by the Positive Precision must be lower than the average pay out for a winner.
             </p>
-            <p>Positive Precision was 0.39%.  So we need the average return on each successful bet to be more than 2.56 (1/0.39) times the amount wagered.
+            <p>Positive Precision was 0.39.  So we need the average return on each successful bet to be more than 2.56 (1/0.39) times the amount wagered.
                In the example above, if we had wagered $1 on all 1006 horses that were predicted to win, and the average return on the 393 winning wagers was $2.56, we would end up with our $1006 dollars back. 
                Therefore we need the winners to average more than $2.56 payout to make any money. If we can get a higher positive precision, then this required payout will be less.    
             </p>    
