@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neva's Blog</title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+ 
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <!-- Navbar content -->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">Neva Bull</a>
+            <button title="Navigation menu" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" >
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            
+        <div class="collapse navbar-collapse"  id="navbarNav">
+            <div class="navbar-nav">
+        
+                
+                <a class="nav-link" href="./index.html" aria-current="true">machine learning</a>
+                <a class="nav-link" href="#">image processing</a>
+                <a class="nav-link active" href="#">vision model</a>
+            </div> 
+        </div>   
+        </div>     
+     </nav>
+     <div class="row">
+        <div class="col-sm-1"> <!----style="background-color: #e3ecf1;">-->
+        </div>
+        <div class="col-sm-1">
+
+        </div>
+        <div class="col-sm-8">
+
+            <div class="container-fluid">
+                <div class = "row">
+                    <br/>
+                    <br/>
+                </div>     
+     <br/>
+     <h4 class="display-6">A simple computational simulation of the retina</h4>
+     <br/>
+     <h5>Basic Concepts</h5>
+                <ul>
+                    <li><u>Repetition in cortical circuitry</u></li>
+                    <p>There appears to be replication of a basic architecture throughout the cortex. The classic example is the cortical column consisting of 6 layers of interconnected neurons.</p>
+                    <li><u>Receptive Fields</u></li>
+                    <p>
+                    Throughout the visual system, from the retina through to occipital, temporal and parietal cortex there is a repeating pattern of what are known as 'receptive fields'. 
+                    These are cortical representations of space with some feature in the center being contrasted with the surround. They can represent various sizes in terms of visual angle (i.e. how big a bit of retina it maps to). 
+                     They also represent various differences between center and surround (i.e. simple differences in brightness/colour, orientations of lines, motion vectors etc)</p>
+                     <li><u>Behaviours of neurons that can encode information</u></li>
+                     <p>Neurons (and other excitable cells) can do at least two things to convey information to the cells they are connected to:</p>
+                     <ol>
+                        <li><u>They can change their firing rate (frequency).</u></li>
+                        <p>Neurons are said to 'fire' (or spike) when they have an action potential. This is a sudden rapid change in the electical polarity of the cell that triggers release of substances that influence neighbouring cells.
+                        Some of these are called 'neurotransmitters'.
+                        </p>
+                        <li><u>They can modulate the amplitude of the signal (inhibition or excitation) they send to their connections.</u></li>
+                        <p>There are hundreds of different neurtransmitters, co-transmitters and neuromodulators. Many of these bind to multiple recepetors each having unique effects on their cell.
+                            The absurd complexity doesn't end there, and the more I study it the more terrifying it gets.                                                      
+                        </p>
+                     </ol>
+                     <li><u>The retina is part of the brain</u></li>
+                     <p>The cells in the retina are not confined to simple photoreceptors, there are numerous layers of different cell types, all doing lots of information processing.
+                        The signals that go down the optic nerve have already been extensively processed.</p>
+                    <li><u>What you 'see' is not what is really out there.</u></li>
+                    <p>The visual system comprises the retina, some sub-cortical areas and a very large part of the cortex. It's most of the back half of the brain, plus some bits in the middle and front. 
+                        By the time an image materialises into conscious perception it has been extensively manipulated by all these cells. We see a rendition rather than reality.</p>
+                </ul>
+     <br/>
+     <h5>Why try to simulate the retina?</h5>
+     <p>There is ongoing debate about what the fundamental mechanism of computation by excitable cells is.  To use analogy, think of the computer you are reading this on. 
+        It's likely a digital computer that does logical operations on sequences of bits. 
+        Because we invented them, we know for sure that this is achieved by transistors implementing logic gates to manipulate bits. So the information <em>encoded</em> as series of bits (i.e. 00110010) 
+        and is <em>processed</em> through a small set of logical operations that transistors can do. How the brain encodes and processes information is still a mystery.</p> 
+     <p>Vision is a good place to start, because we can use an objectively measurable input (an image) and objectively measure the output.  
+        The reason to use computational simulation is that it may produce surprising results. Traditional mathematical modelling can accurately describe relationships between inputs and outputs, 
+        but this doesn't mean that the cells are doing the math as described in these models. if they are doing math, what sort is it and how do they achieve it?</p> 
+     <br/>
+     <h4>The Simulation Architecture</h4>
+     <br/>
+     <p>
+     To keep things as simple as reasonably possible I have included only 3 layers of cells.  These are loosely based on their physiologic name-sakes and include:
+    </p><p>
+     <ul>
+        <li>Cones</li>
+        <p>These are the photoreceptors that recieve information from the input image</p>
+        <li>Horizontal Cells</li>
+        <p>These aggregate the responses of the cones into center-surround receptive fields.</p>
+        <li>Ganglion Cells</li>
+        <p>These aggregate responses of Horizontal cells. Their resultant firing rate forms the output of the simulation.</p>
+     </ul>     
+    </p>
+<p>
+    Images are two dimmensional arrays (x pixels wide and y pixels high) of pixels that have varying colour. In this model there is one cone, one horizontal and one ganglion cell for every pixel in the image. There are, however, many connections between these cells.  
+    All possible sets of 9 adjacent cones ( 3 x 3 grids ) are connected to each horizontal cell and all possible sets of 9 adjacent horizontal cells are connected to each ganglion cell.
+    As a result for an image of 200 x 200 pixels there will be 120,000 virtual neurons and 720,000 synapses.   
+</p>
+<p><u>Schematic of single receptive field made up of cones:</u></p>
+<p>E stands for excitatory - these cells send excitatory signals to the cells they are connected to.  I stands for Inhibitory</p>
+<p><img src="./images/cones1.png" alt="receptive field schematic"/></p>
+<p><u>Schematic of multiple receptive fields (only one dimension displayed for simplicity):</u></p>
+<p><img src="./images/conearray.png" alt="array of receptive fields"/></p>
+<p><u>This architecture is repeated for horizontal cells</u></p>
+<p><img src="./images/horzl.png"/></p>
+</div>
+</div>
+</div>
+</body>
+</html>
