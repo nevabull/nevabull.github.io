@@ -71,14 +71,24 @@
                         <p>Neurons are said to 'fire' (or spike) when they have an action potential. This is a sudden rapid change in the electical polarity of the cell that triggers release of substances that influence neighbouring cells.
                         Some of these are called 'neurotransmitters'.
                         </p>
+                        <p>
+                            Cells have internal mechanisms regulating their firing rate which can vary between cell types. The firing rate has an upper limit determined by the cells refractory period. 
+                            Some cells fire at predictable regular intervals (pacemaker cells), but for many the firing rate is erratic and best described by probabilities.
+                        </p>
                         <li><u>They can modulate the amplitude of the signal (inhibition or excitation) they send to their connections.</u></li>
                         <p>There are hundreds of different neurtransmitters, co-transmitters and neuromodulators. Many of these bind to multiple recepetors each having unique effects on their cell.
                             The absurd complexity doesn't end there, and the more I study it the more terrifying it gets.                                                      
                         </p>
+                        <p>
+                            Thankfully, this complexity can be reduced to a simple rule; <em>All communications from a cell (the efferent) lead to either inhibition or excitation of the receiving cell (the afferent).</em> 
+                            This changes the likelihood of the receiving cell firing. It can be mediatiated by all sorts of mechanisms, but the end result is the same - the cell will either be primed to be more likely to fire if it receives excitation, 
+                            or made less likely to fire if it receives inhibition. The effect can happen over a range of time scales, last for varying durations and occur between cells of varying physical distance from each other.       
+                        </p>
                      </ol>
                      <li><u>The retina is part of the brain</u></li>
                      <p>The cells in the retina are not confined to simple photoreceptors, there are numerous layers of different cell types, all doing lots of information processing.
-                        The signals that go down the optic nerve have already been extensively processed.</p>
+                        The signals that go down the optic nerve have already been extensively processed.
+                    The retina can be thought of as a part of the brain, just out on stalks looking at the world.</p>
                     <li><u>What you 'see' is not what is really out there.</u></li>
                     <p>The visual system comprises the retina, some sub-cortical areas and a very large part of the cortex. It's most of the back half of the brain, plus some bits in the middle and front. 
                         By the time an image materialises into conscious perception it has been extensively manipulated by all these cells. We see a rendition rather than reality.</p>
@@ -103,7 +113,7 @@
 <p>
     Images are two dimmensional arrays (x pixels wide and y pixels high) of pixels that have varying colour. In this model there is one cone, one horizontal and one ganglion cell for every pixel in the image. There are, however, many connections between these cells.  
     All possible sets of 9 adjacent cones ( 3 x 3 grids ) are connected to each horizontal cell and all possible sets of 9 adjacent horizontal cells are connected to each ganglion cell.
-    As a result for an image of 200 x 200 pixels there will be 120,000 virtual neurons and 720,000 synapses.   
+    As a result, for an image of 200 x 200 pixels there will be 120,000 virtual neurons and 720,000 synapses.   
 </p>
 <p><u>Schematic of single receptive field made up of cones:</u></p>
 <p>E stands for excitatory - these cells send excitatory signals to the cells they are connected to.  I stands for Inhibitory</p>
@@ -112,6 +122,54 @@
 <p><img src="./images/conearray.png" alt="array of receptive fields"/></p>
 <p><u>This architecture is repeated for horizontal cells</u></p>
 <p><img src="./images/horzl.png"/></p>
+<br/>
+<br/>
+<h4>Properties and behaviours of simulated cells</h4>
+<br/>
+<ol>
+    <li><u>Common Properties:</u></li>
+    <p>
+        <ul>
+            <li>
+               <p>
+                    Cells have a difference in electrical potential - measured in mV - across the cell membrane (between the intracellular and extracellular space).  
+                    This can change either up or down. If the potential reaches a 'critical' potential the cell will 'fire' and then immediately return it's potential to a 'resting' potential.
+                    When a cell fires it changes the potential of the cells it is connected to in either a positive or negative direction (inhibition or excitation).
+               </p> 
+               <p>
+                  Each cell is an independant object. They maintain their current status ( membrane potential and internal timer ) and their individual properties in isolation.
+                  They are created individually and begin firing autonomously. The timining of each cell creation is not tightly controlled and hence has a degree of randomness. 
+                  This results asynchronous firing of cells even if they are created with the same properties. e.g. adjacent cones stimulated by the pixels of the same brightness are unlikely to fire at the same time.      
+               </p>
+              
+            </li>
+        </ul>    
+    </p>
+    <li>        
+        <u>Properties of Cones</u>
+        <p>
+            Cones have a fast basal firing rate and are inhibited by the level of brightness of the light hitting them (i.e. the brightness of the corresponding pixel in the input image). 
+            In other words, cones that are stimulated by a bright pixel will fire at a slower rate than one's stimulated by a dark pixel.
+        </p>
+        <p>
+            This sounds backwards - but I found, accidently, that it is required. 
+            When documenting my working code, I saw that I had a minus where there should have been a plus, so I reveresed it and the simulation no longer produced sensible output.
+            I went back to the physiology textbooks and found that this is indeed the behaviour of real cones!
+        </p>
+        <p>           
+            The degree of excitation sent by the cone (e) to the horizontal cell in the center of the receptive field is determined by the brightness of it's pixel. The brighter the pixel the larger the excitation. 
+            The relationship is linear in a direct mapping of the pixel brightness (range: 0 = black - 255 = white). 
+        </p>
+        <p>
+            The inhibitory signal sent by a cone (i) to the horizontal cells in the surround is negative 1/8 of the brightness. i.e. -e/8 
+        </p>
+        <p>
+            Each cone spontaneously excites itself at a rate determined by the brightness of its pixel.  
+            This is in milliseconds, a pixel with a bightness of 200, will result in the cell raising it's membrance potential every 200ms. 
+            This results in cones responding to bright pixels firing at slower rates than those responding to dark pixels. 
+        </p>
+    </li>
+</ol>
 </div>
 </div>
 </div>
