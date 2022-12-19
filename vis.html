@@ -107,7 +107,7 @@
         <li>Horizontal Cells</li>
         <p>These aggregate the responses of the cones into center-surround receptive fields.</p>
         <li>Ganglion Cells</li>
-        <p>These aggregate responses of Horizontal cells. Their resultant firing rate forms the output of the simulation.</p>
+        <p>These aggregate responses of Horizontal cells into center-surround receptive fields. Their resultant firing rate forms the output of the simulation.</p>
      </ul>     
     </p>
 <p>
@@ -139,7 +139,8 @@
                <p>
                   Each cell is an independant object. They maintain their current status ( membrane potential and internal timer ) and their individual properties in isolation.
                   They are created individually and begin firing autonomously. The timining of each cell creation is not tightly controlled and hence has a degree of randomness. 
-                  This results asynchronous firing of cells even if they are created with the same properties. e.g. adjacent cones stimulated by the pixels of the same brightness are unlikely to fire at the same time.      
+                  This results asynchronous firing of cells even if they are created with the same properties.
+                   e.g. adjacent cones stimulated by pixels of the same brightness are unlikely to fire at the same time.      
                </p>
               
             </li>
@@ -156,19 +157,40 @@
             When documenting my working code, I saw that I had a minus where there should have been a plus, so I reveresed it and the simulation no longer produced sensible output.
             I went back to the physiology textbooks and found that this is indeed the behaviour of real cones!
         </p>
+        <p>
+            Each cone spontaneously excites itself by a small amount at a rate determined by the brightness of its pixel. 
+             This is in milliseconds, a pixel with a bightness of 200, will result in the cell raising it's membrance potential every 200ms. 
+             When this excitation reaches the critical threshold, it will fire and send a packet of inhibition or excitation to the horizontal cells it is connected to.         
+            This results in cones stimulated by bright pixels firing at slower rates than those responding to dark pixels. 
+        </p>
         <p>           
             The degree of excitation sent by the cone (e) to the horizontal cell in the center of the receptive field is determined by the brightness of it's pixel. The brighter the pixel the larger the excitation. 
             The relationship is linear in a direct mapping of the pixel brightness (range: 0 = black - 255 = white). 
         </p>
         <p>
-            The inhibitory signal sent by a cone (i) to the horizontal cells in the surround is negative 1/8 of the brightness. i.e. -e/8 
-        </p>
-        <p>
-            Each cone spontaneously excites itself at a rate determined by the brightness of its pixel.  
-            This is in milliseconds, a pixel with a bightness of 200, will result in the cell raising it's membrance potential every 200ms. 
-            This results in cones responding to bright pixels firing at slower rates than those responding to dark pixels. 
-        </p>
+            The inhibitory signal sent by a cone (i) to the horizontal cells in the surround section of the receptive field is: -e/8.   
+        </p>        
     </li>
+    <li>
+        <u>Properties of Horizontal Cells</u>
+        <p>
+            Horizontal cells do not spontaneously polarise themselves. They do not run an internal timer. 
+            They receive packets of inhibition and excitation from cones. If and when the received packets sum above the critical threshold the cell will fire and send packets upstream to the gangion cells.
+            The cell then resets it's potential back to the resting potential.  
+        </p>
+        <p>They polarise their respective ganglion cells by +1 mV for excitation and -8 mV for inhibition.</p>
+    </li>
+    <li><u>Properties of Ganglion Cells</u></li>
+    <p>The output image is determined by the sum of the number of times each ganglion cell has fired. The pixel in the ouput image corresponding to the location of the ganglion cell is made brighter each time it fires.
+        The ouput image evolves as the simulation runs with pixels becoming progressively brighter with every spike of a ganglion cell.</p>
+        <p> <strong>Therefore, the output image is a representation of the firing rate of ganglion cells accross both space and time. </strong></p> 
+    <p> 
+         Ganglion cells spontaneously depolarise themselves by a set amount on the tick of an internal timer. This has the effect of reducing noise and increasing the signal to noise ratio (SNR).     
+     </p>
+     <p>
+        Ganglion cells are self regulating. Each time a ganglion cell fires, it raises it's critical threshold for determining if it should fire again on further excitation. 
+        This is designed to simulate the adaptation that real cells display by downregulating during periods of prolonged stimulation.   
+     </p>
 </ol>
 </div>
 </div>
