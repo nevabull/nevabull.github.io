@@ -179,6 +179,10 @@
             The cell then resets it's potential back to the resting potential.  
         </p>
         <p>They polarise their respective ganglion cells by +1 mV for excitation and -8 mV for inhibition.</p>
+        <p>
+            Horizontal cells are self regulating. Each time a cell fires, it raises it's critical threshold for determining if it should fire again on further excitation. 
+            This is designed to simulate the adaptation that real cells display by downregulating during periods of prolonged stimulation.   
+         </p>
     </li>
     <li><u>Properties of Ganglion Cells</u></li>
     <p>The output image is determined by the sum of the number of times each ganglion cell has fired. The pixel in the ouput image corresponding to the location of the ganglion cell is made brighter each time it fires.
@@ -188,8 +192,7 @@
          Ganglion cells spontaneously depolarise themselves by a set amount on the tick of an internal timer. This has the effect of reducing noise and increasing the signal to noise ratio (SNR).     
      </p>
      <p>
-        Ganglion cells are self regulating. Each time a ganglion cell fires, it raises it's critical threshold for determining if it should fire again on further excitation. 
-        This is designed to simulate the adaptation that real cells display by downregulating during periods of prolonged stimulation.   
+        Ganglion cells are self regulating in the same manner as horizontal cells.  They are increasing less likely to fire the more they have fired. 
      </p>
 </ol>
 </div>
