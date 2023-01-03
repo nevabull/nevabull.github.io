@@ -179,20 +179,23 @@
             The cell then resets it's potential back to the resting potential.  
         </p>
         <p>They polarise their respective ganglion cells by +1 mV for excitation and -8 mV for inhibition.</p>
-        <p>
-            Horizontal cells are self regulating. Each time a cell fires, it raises it's critical threshold for determining if it should fire again on further excitation. 
-            This is designed to simulate the adaptation that real cells display by downregulating during periods of prolonged stimulation.   
-         </p>
+        
     </li>
     <li><u>Properties of Ganglion Cells</u></li>
     <p>The output image is determined by the sum of the number of times each ganglion cell has fired. The pixel in the ouput image corresponding to the location of the ganglion cell is made brighter each time it fires.
         The ouput image evolves as the simulation runs with pixels becoming progressively brighter with every spike of a ganglion cell.</p>
         <p> <strong>Therefore, the output image is a representation of the firing rate of ganglion cells accross both space and time. </strong></p> 
     <p> 
-         Ganglion cells spontaneously depolarise themselves by a set amount on the tick of an internal timer. This has the effect of reducing noise and increasing the signal to noise ratio (SNR).     
+         Ganglion cells spontaneously depolarise themselves by an amount on the tick of an internal timer. This has the effect of reducing noise and hence increasing the signal to noise ratio (SNR).     
      </p>
      <p>
-        Ganglion cells are self regulating in the same manner as horizontal cells.  They are increasing less likely to fire the more they have fired. 
+        Ganglion cells are self regulating.  They have 3 mechanisms for this: 
+        <ol>
+            <li><u>Changing the time interval between spontaneous depolarisations</u></li>
+            <li><u>Changing the amount of each depolarisation</u>
+            <li><u>Changing their critical voltage threshold for firing.</u></li>
+        </ol>
+        Each of these is non-linear, in that they are doubled or halved at each change.
      </p>
 </ol>
 </div>
