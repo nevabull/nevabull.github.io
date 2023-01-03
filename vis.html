@@ -201,7 +201,7 @@
         This results in edges of any contrast gradient being detected.  The 'strength' of the signal - corresponding to the degree of intensity gradient - is encoded in the temporal dynamics of the ganglion cell. <br/><br/>
         Strong edges will immerge quickly with a rapid initial burst of ganglion cell spiking. These will downregulate proportionately relative to the intensity of initial firing. 
         As this is happening, less intensly stimulated ganglion cells will become increasing primed and hence their firing rate will begin to increase.<br/><br/>
-        The result is that distinct edges will emerge first, but over time increasingly less distinct edge will emerge.<br/>
+        The result is that distinct edges will emerge first, but over time increasingly less distinct edges will emerge.<br/>
         <p>
         It is important to note, that this is not the end of information processing in the visual cortex, rather these signals are being sent upstream in real time.  
         So the effect on vision is that bold edges are detected fast and passed upstream <em>before</em> subtle edges. 
@@ -232,6 +232,27 @@
     This is mediated by independant adaptation of each ganglion cell. The result of this adaptation is that no assumptions or prior knowledge is needed to find all edges in any image. 
     It will work independant on the properties of the input image - without needing tweeking.  
 </p>
+<p>
+    <h4>Importance of Time and Temporal Correlation</h4>
+</p>
+<p>
+   We can see that excitation is built up by summing the inputs from cells in the previous layers. There is a small component of random noise in the outputs of the simulation and no two runs are identical.
+   This is because each cell is running an independant timer with it's own duration. Even when adjacent cells have timers with the same duration, they are unlikely to have been initiated at exactly the same time. 
+   When cells are aggregating inputs from the previous layer, there is a chance that sufficient excitatory signals will be received to trigger a spike before sufficient inhibition has been received.   
+   This results in a small amount of noise in the output - visible by feint random dots.  
+</p>
+<p>
+    There is a dependency on a temporal correlation between incoming signals from the proceeding cell layer. 
+    They don't need to be simulataneous, but the strength of the resultant summation is determined by how close they are together in time. i.e. the degree of synchronicity. 
+    This is because the cells are rebalancing themselves back to the resting potential (and adapting their propensity to spike) after each spike.  
+</p>
+<p>
+    This has implications for signal detection.  
+    If the visual system is aggregating information in this fashion then it would follow that <em>a large number of synchronous low intensity signals will produce the same effect as a small number of synchronous high intensity signals</em>.
+    This was the basic idea behind the experiments in our 2003 paper: 
+    <a href="https://journals.sagepub.com/doi/10.1068/p3278?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed">Bull NJ, Hunter M, Finlay DC. Cue gradient and cue density interact in the detection and recognition of objects defined by motion, contrast, or texture. Perception. 2003;32(1):29-39.</a> 
+</p>
+<p>In that paper we demonstrated that this simple rule applies irrespective of whether the information in question is a difference in brightness, velocity or shapes.</p>
 </div>
 </div>
 </div>
